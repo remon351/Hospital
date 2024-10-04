@@ -1,0 +1,137 @@
+﻿<head>
+    <style>
+        /* Center the form */
+        body {
+
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            width: 1100px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .wide-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        .success-message {
+            color: green;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Complete Appointment with @Model.Name</h1>
+        <form class="wide-form" id="appointmentForm">
+            <label for="patient-name">Patient Name:</label>
+            <input type="text" id="patient-name" name="patientName" placeholder="Enter your name" required>
+            <span class="error-message" id="nameError">This field is required.</span>
+
+            <label for="appointment-date">Appointment Date:</label>
+            <input type="date" id="appointment-date" name="appointmentDate" required>
+            <span class="error-message" id="dateError">This field is required.</span>
+
+            <label for="appointment-time">Appointment Time:</label>
+            <input type="time" id="appointment-time" name="appointmentTime" required>
+            <span class="error-message" id="timeError">This field is required.</span>
+
+            <button type="submit">Complete Appointment</button>
+            <span class="success-message" id="successMessage">Your appointment has been successfully completed, thank you.</span>
+        </form>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById("appointmentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form elements
+            const patientName = document.getElementById("patient-name").value;
+            const appointmentDate = document.getElementById("appointment-date").value;
+            const appointmentTime = document.getElementById("appointment-time").value;
+
+            // Error message elements
+            const nameError = document.getElementById("nameError");
+            const dateError = document.getElementById("dateError");
+            const timeError = document.getElementById("timeError");
+
+            // Success message
+            const successMessage = document.getElementById("successMessage");
+
+            // Validation logic
+            let isValid = true;
+
+            if (!patientName) {
+                nameError.style.display = "block";
+                isValid = false;
+            } else {
+                nameError.style.display = "none";
+            }
+
+            if (!appointmentDate) {
+                dateError.style.display = "block";
+                isValid = false;
+            } else {
+                dateError.style.display = "none";
+            }
+
+            if (!appointmentTime) {
+                timeError.style.display = "block";
+                isValid = false;
+            } else {
+                timeError.style.display = "none";
+            }
+
+            // If all fields are valid, show the success message
+            if (isValid) {
+                successMessage.style.display = "block";
+                document.getElementById("appointmentForm").reset();
+            }
+        });
+    </script>
+</body>
+
+
